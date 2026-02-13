@@ -1,89 +1,23 @@
 {
-  "meta": {
-    "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-11T08:21:29.913Z"
-  },
-  "wizard": {
-    "lastRunAt": "2026-02-11T03:35:52.072Z",
-    "lastRunVersion": "2026.2.9",
-    "lastRunCommand": "onboard",
-    "lastRunMode": "local"
-  },
   "browser": {
     "executablePath": "/snap/bin/chromium"
   },
-  "auth": {
-    "profiles": {
-      "qwen-portal:default": {
-        "provider": "qwen-portal",
-        "mode": "oauth"
-      }
-    }
-  },
   "models": {
     "providers": {
-      "qwen-portal": {
-        "baseUrl": "https://portal.qwen.ai/v1",
-        "apiKey": "qwen-oauth",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "coder-model",
-            "name": "Qwen Coder",
-            "reasoning": false,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 128000,
-            "maxTokens": 8192
-          },
-          {
-            "id": "vision-model",
-            "name": "Qwen Vision",
-            "reasoning": false,
-            "input": [
-              "text",
-              "image"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 128000,
-            "maxTokens": 8192
-          }
-        ]
-      },
       "litellm": {
-        "baseUrl": "http://172.29.70.64:4000/v1",
-        "apiKey": "sk-1234",
+        "baseUrl": "http://{LLM-IP:PORT}/v1",
+        "apiKey": "{API-KEY}",
         "api": "openai-completions",
-        "headers": {
-          "x-litellm-api-key": "sk-1234"
-        },
         "authHeader": false,
+        "headers": {
+          "x-litellm-api-key": "{API-KEY}"
+        },
         "models": [
           {
             "id": "gemma-3-27b-it",
-            "name": "Gemma 3 27B IT (LiteLLM)",
+            "name": "Gemma 3 27B IT",
             "reasoning": false,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
+            "input": ["text"],
             "contextWindow": 200000,
             "maxTokens": 8192
           }
@@ -94,19 +28,12 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "litellm/gemma-3-27b-it",
-        "fallbacks": [
-          "qwen-portal/coder-model"
-        ]
+        "primary": "litellm/gemma-3-27b-it"
       },
       "models": {
         "litellm/gemma-3-27b-it": {
           "alias": "gemma"
-        },
-        "qwen-portal/coder-model": {
-          "alias": "qwen"
-        },
-        "qwen-portal/vision-model": {}
+        }
       },
       "workspace": "/home/intern/.openclaw/workspace",
       "compaction": {
@@ -121,9 +48,7 @@
   "tools": {
     "byProvider": {
       "litellm/gemma-3-27b-it": {
-        "deny": [
-          "*"
-        ]
+        "deny": ["*"]
       }
     }
   },
@@ -137,13 +62,11 @@
   "channels": {
     "mattermost": {
       "enabled": true,
-      "baseUrl": "https://mattermost.intern.dida.psu.ac.th",
-      "botToken": "9goyo77irbgtfm7t499edzypto",
+      "baseUrl": "https://{YOUR-MATTERMOST-URL}",
+      "botToken": "{BOT-TOKEN}",
       "dmPolicy": "pairing",
       "chatmode": "onchar",
-      "oncharPrefixes": [
-        ">"
-      ]
+      "oncharPrefixes": [">"]
     }
   },
   "gateway": {
@@ -152,21 +75,7 @@
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "e970f9541870f7d94af31843347879e302dfa8341b51cb91"
-    },
-    "tailscale": {
-      "mode": "off",
-      "resetOnExit": false
-    },
-    "nodes": {
-      "denyCommands": [
-        "camera.snap",
-        "camera.clip",
-        "screen.record",
-        "calendar.add",
-        "contacts.add",
-        "reminders.add"
-      ]
+      "token": "{AUTO-GENERATED-TOKEN}"
     }
   },
   "skills": {
@@ -176,20 +85,8 @@
   },
   "plugins": {
     "entries": {
-      "qwen-portal-auth": {
-        "enabled": true
-      },
       "mattermost": {
         "enabled": true
-      }
-    },
-    "installs": {
-      "mattermost": {
-        "source": "path",
-        "sourcePath": "/home/intern/openclaw/extensions/mattermost",
-        "installPath": "/home/intern/.openclaw/extensions/mattermost",
-        "version": "2026.2.9",
-        "installedAt": "2026-02-11T03:53:51.409Z"
       }
     }
   }
